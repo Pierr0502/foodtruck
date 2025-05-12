@@ -26,7 +26,7 @@ document.getElementById('order-form').addEventListener('submit', function(event)
 
     // Préparer l'e-mail (simulation)
     const emailParams = {
-        to_email: "sauvegrainpml@gmail.com",  // Adresse e-mail fictive
+        to_email: "hermend.paularthur@gmail.com",  // Adresse e-mail fictive
         from_name: nom,
         order_number: orderNumber,
         plat: plat
