@@ -18,8 +18,8 @@ document.getElementById('order-form').addEventListener('submit', function(event)
     document.getElementById('confirmation-message').innerText = `Votre commande numéro ${orderNumber} a été passée. Vous avez commandé un(e) ${plat}.`;
 
     const emailParams = {
-        to_email: "hermend.paularthur@gmail.com",
-        from_name: nom,
+        "To Email": "hermend.paularthur@gmail.com",
+        "From Name": nom,
         order_id: orderNumber,
         name: plat
     };
