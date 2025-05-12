@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FoodTruck - Commande Fictive</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>FoodTruck</h1>
+        <p>Commandez vos plats préférés en toute simplicité !</p>
+    </header>
+
+    <main>
+        <section id="menu">
+            <h2>Notre Menu</h2>
+            <ul>
+                <li>Hamburger - 5€</li>
+                <li>Frites - 2€</li>
+                <li>Boisson - 1€</li>
+            </ul>
+        </section>
+
+        <section id="commande">
+            <h2>Passer une commande</h2>
+            <form id="order-form">
+                <label for="nom">Votre nom :</label>
+                <input type="text" id="nom" required><br>
+
+                <label for="plat">Choisissez votre plat :</label>
+                <select id="plat" required>
+                    <option value="hamburger">Hamburger</option>
+                    <option value="frites">Frites</option>
+                    <option value="boisson">Boisson</option>
+                </select><br>
+
+                <button type="submit">Valider la commande</button>
+            </form>
+        </section>
+
+        <section id="confirmation" style="display: none;">
+            <h2>Confirmation de commande</h2>
+            <p id="confirmation-message"></p>
+        </section>
+    </main>
+
+    <footer>
+        <p>FoodTruck - © 2025</p>
+    </footer>
+
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
