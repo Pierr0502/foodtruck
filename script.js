@@ -17,7 +17,7 @@ document.getElementById('order-form').addEventListener('submit', function(event)
     const plat = document.getElementById('plat').value;
 
     // Générer un numéro de commande
-    const orderNumber = generateOrderNumber();
+    const orderID = generateOrderNumber();
 
     // Afficher la confirmation
     document.getElementById('commande').style.display = 'none';
