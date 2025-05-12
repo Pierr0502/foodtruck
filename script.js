@@ -20,8 +20,8 @@ document.getElementById('order-form').addEventListener('submit', function(event)
     const emailParams = {
         to_email: "hermend.paularthur@gmail.com",
         from_name: nom,
-        order_number: orderNumber,
-        plat: plat
+        order_id: orderNumber,
+        name: plat
     };
 
     emailjs.send('service_q67jhal', 'template_g66jtml', emailParams)
