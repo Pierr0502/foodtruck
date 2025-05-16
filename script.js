@@ -37,8 +37,7 @@ document.getElementById('order-form').addEventListener('submit', function(event)
     document.getElementById('confirmation-message').innerText = `Votre commande numéro ${orderNumber} a été passée. Vous avez commandé un(e) ${plat}. Prix : ${price}€.`;
 
     const emailParams = {
-        email: "hermend.paularthur@gmail.com",
-        "From Name": nom,
+        customer: nom,
         order_id: orderNumber,
         name: plat,
         price: price, // Prix unitaire
