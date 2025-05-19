@@ -6,7 +6,7 @@ body {
 }
 
 header {
-    background-color: #ff6347;
+    background-color: ##191970;
     color: white;
     text-align: center;
     padding: 20px;
@@ -41,7 +41,7 @@ input, select, button {
 }
 
 button {
-    background-color: #ff6347;
+    background-color: ##191970;
     color: white;
     border: none;
     cursor: pointer;
