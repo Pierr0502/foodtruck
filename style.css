@@ -3,19 +3,20 @@ body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f2f2f2;
+    background-color: #f2f2f2; /* Fond de la page */
     color: #333;
+    line-height: 1.6;
 }
 
 /* Header avec fond bleu foncé */
 header {
-    background-color: #003366; /* bleu foncé, la même couleur que le bouton */
+    background-color: #003366; /* bleu foncé */
     padding: 60px 20px;
     text-align: center;
     color: white;
 }
 
-/* Sections */
+/* Sections : ajout de padding et de marges pour mieux les afficher */
 main section {
     padding: 20px;
     background-color: white;
@@ -24,7 +25,7 @@ main section {
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-/* Formulaire */
+/* Formulaire : s'assurer qu'il est bien visible */
 form label {
     display: block;
     margin-top: 10px;
@@ -32,9 +33,10 @@ form label {
 
 form input, form select {
     width: 100%;
-    padding: 8px;
-    margin-top: 5px;
+    padding: 10px; /* Plus grand padding pour que les champs soient bien visibles */
+    margin-top: 10px;
     box-sizing: border-box;
+    border: 1px solid #ccc;
 }
 
 /* Bouton de commande : bleu foncé */
@@ -49,13 +51,16 @@ form button {
 }
 
 form button:hover {
-    background-color: #002244; /* encore plus foncé au survol */
+    background-color: #002244; /* plus foncé au survol */
 }
 
-/* Confirmation */
+/* Confirmation : ajouter un fond et de l'espace */
 #confirmation {
     text-align: center;
     font-size: 1.2em;
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
 }
 
 /* Footer */
@@ -64,5 +69,8 @@ footer {
     padding: 15px;
     background-color: #333;
     color: white;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }
 
