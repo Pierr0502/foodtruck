@@ -1,76 +1,20 @@
-/* Style général */
 body {
     font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f2f2f2; /* Fond de la page */
+    background-color: #f5f5f5;
     color: #333;
-    line-height: 1.6;
+    padding-bottom: 60px;
 }
 
-/* Header avec fond bleu foncé */
 header {
-    background-color: #003366; /* bleu foncé */
-    padding: 60px 20px;
-    text-align: center;
+    background-color: #ff8c00;
     color: white;
-}
-
-/* Sections : ajout de padding et de marges pour mieux les afficher */
-main section {
-    padding: 20px;
-    background-color: white;
-    margin: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
-/* Formulaire : s'assurer qu'il est bien visible */
-form label {
-    display: block;
-    margin-top: 10px;
-}
-
-form input, form select {
-    width: 100%;
-    padding: 10px; /* Plus grand padding pour que les champs soient bien visibles */
-    margin-top: 10px;
-    box-sizing: border-box;
-    border: 1px solid #ccc;
-}
-
-/* Bouton de commande : bleu foncé */
-form button {
-    margin-top: 15px;
-    padding: 10px 20px;
-    background-color: #003366; /* bleu foncé */
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-form button:hover {
-    background-color: #002244; /* plus foncé au survol */
-}
-
-/* Confirmation : ajouter un fond et de l'espace */
-#confirmation {
     text-align: center;
-    font-size: 1.2em;
-    background-color: #f9f9f9;
-    padding: 15px;
-    border-radius: 8px;
+    padding: 20px 0;
 }
 
-/* Footer */
-footer {
-    text-align: center;
-    padding: 15px;
-    background-color: #333;
-    color: white;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
+h1 {
+    margin: 0;
+    font-size: 36px;
 }
 
+/* Et ainsi de suite... */
