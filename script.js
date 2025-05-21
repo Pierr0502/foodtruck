@@ -1,5 +1,5 @@
 // Initialiser EmailJS
-emailjs.init('TON_USER_ID'); // Remplace par ton vrai User ID EmailJS
+emailjs.init(r50mzNs4DLHf_pWzK); // Remplace par ton vrai User ID EmailJS
 
 const prixPlats = {
     "Hamburger": 5,
@@ -55,7 +55,7 @@ document.addEventListener('DOMContentLoaded', function () {
             localStorage.setItem("commande", JSON.stringify(commande));
 
             // Envoi via EmailJS
-            emailjs.send('TON_SERVICE_ID', 'TON_TEMPLATE_ID', {
+            emailjs.send(service_q67jhal, template_g66jtml, {
                 name: nom,
                 order: `${plat} + ${boisson}`,
                 date: date,
