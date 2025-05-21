@@ -1,55 +1,141 @@
-(function() {
-    emailjs.init("r50mzNs4DLHf_pWzK");
-})();
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Foodtruck - Commandez votre menu ici</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            padding-bottom: 60px; /* Ajouter de l'espace en bas pour éviter que le footer chevauche le formulaire */
+        }
 
-function generateOrderNumber() {
-    return Math.floor(Math.random() * 1000000);
-}
+        footer {
+            background-color: #f1f1f1;
+            text-align: center;
+            padding: 10px 0;
+            width: 100%;
+        }
 
-document.getElementById('order-form').addEventListener('submit', function(event) {
-    event.preventDefault();
+        #total {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>FoodTruck</h1>
+        <p>Commandez vos plats préférés en toute simplicité !</p>
+    </header>
 
-    const nom = document.getElementById('nom').value;
-    const platSelect = document.getElementById('plat');
-    const plat = platSelect.value;
-    const orderNumber = generateOrderNumber();
-    let price = 0;
+    <main>
+        <section id="menu">
+            <h2>Notre Menu</h2>
+            <ul>
+                <li>Hamburger - 5€</li>
+                <li>Frites - 2€</li>
+            </ul>
+        </section>
 
-    // Déterminer le prix en fonction du plat sélectionné
-    switch (plat) {
-        case 'hamburger':
-            price = 5;
-            break;
-        case 'frites':
-            price = 2;
-            break;
-        case 'boisson':
-            price = 1;
-            break;
-        default:
-            price = 0; // Prix par défaut si le plat n'est pas reconnu
-    }
+        <section id="boissons-menu">
+            <h2>Nos boissons</h2>
+            <ul> 
+                <li>Coca Cola - 1€</li>
+                <li>Sprite - 1€</li>
+                <li>Jupiler - 1,5€</li>
+            </ul>
+        </section>
 
-    const costTotal = price; // Pour une seule commande, le coût total est le prix unitaire
+        <section id="commande">
+            <h2>Passer une commande</h2>
+            <form id="order-form">
+                <label for="nom">Votre nom :</label>
+                <input type="text" id="nom" name="nom" required><br>
 
-    document.getElementById('commande').style.display = 'none';
-    document.getElementById('confirmation').style.display = 'block';
-    document.getElementById('confirmation-message').innerText = `Votre commande numéro ${orderNumber} a été passée. Vous avez commandé un(e) ${plat}. Prix : ${price}€.`;
+                <label for="plat">Choisissez votre plat :</label>
+                <select id="plat" name="plat" required>
+                    <option value="">-- Sélectionnez un plat --</option>
+                    <option value="Hamburger">Hamburger - 5€</option>
+                    <option value="Frites">Frites - 2€</option>
+                </select><br>
 
-    const emailParams = {
-        customer: nom,
-        order_id: orderNumber,
-        name: plat,
-        price: price, // Prix unitaire
-        'cost.total': costTotal // Coût total de la commande
-    };
+                <label for="boisson">Choisissez votre boisson :</label>
+                <select id="boisson" name="boisson" required>
+                    <option value="">-- Sélectionnez une boisson --</option>
+                    <option value="Coca Cola">Coca Cola - 1€</option>
+                    <option value="Sprite">Sprite - 1€</option>
+                    <option value="Jupiler">Jupiler - 1,5€</option>
+                </select><br>
 
-    console.log('Tentative d\'envoi de l\'e-mail avec les paramètres:', emailParams);
+                <button type="submit">Valider la commande</button>
+            </form>
 
-    emailjs.send('service_q67jhal', 'template_g66jtml', emailParams)
-        .then(function(response) {
-            console.log('Commande envoyée avec succès', response);
-        }, function(error) {
-            console.error('Erreur lors de l\'envoi de la commande', error);
+            <!-- Section pour afficher le prix total -->
+            <p id="total">Prix total : 0€</p>
+        </section>
+
+        <section id="confirmation" style="display: none;">
+            <h2>Confirmation de commande</h2>
+            <p id="confirmation-message"></p>
+        </section>
+    </main>
+
+    <footer>
+        <p>FoodTruck - © 2025</p>
+    </footer>
+
+    <script>
+        // Prix des éléments de menu
+        const prixPlats = {
+            "Hamburger": 5,
+            "Frites": 2
+        };
+
+        const prixBoissons = {
+            "Coca Cola": 1,
+            "Sprite": 1,
+            "Jupiler": 1.5
+        };
+
+        // Fonction pour mettre à jour le prix total
+        function updateTotal() {
+            const plat = document.getElementById('plat').value;
+            const boisson = document.getElementById('boisson').value;
+            let total = 0;
+
+            if (plat) {
+                total += prixPlats[plat];
+            }
+
+            if (boisson) {
+                total += prixBoissons[boisson];
+            }
+
+            // Affichage du total
+            document.getElementById('total').textContent = `Prix total : ${total}€`;
+        }
+
+        // Écouteurs d'événements pour mettre à jour le total à chaque sélection
+        document.getElementById('plat').addEventListener('change', updateTotal);
+        document.getElementById('boisson').addEventListener('change', updateTotal);
+
+        // Gérer la soumission du formulaire
+        document.getElementById('order-form').addEventListener('submit', function(event) {
+            event.preventDefault(); // Empêcher l'envoi du formulaire pour tester le calcul
+
+            const nom = document.getElementById('nom').value;
+            const plat = document.getElementById('plat').value;
+            const boisson = document.getElementById('boisson').value;
+
+            if (nom && plat && boisson) {
+                document.getElementById('confirmation-message').textContent = `Merci ${nom}, votre commande est confirmée : ${plat} et ${boisson}.`;
+                document.getElementById('confirmation').style.display = 'block';
+            } else {
+                alert("Veuillez remplir tous les champs !");
+            }
         });
-});
+    </script>
+
+</body>
+</html>
