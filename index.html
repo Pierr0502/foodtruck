@@ -1,61 +1,123 @@
-<!-- EmailJS SDK v4 -->
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-<script>
-  emailjs.init("r50mzNs4DLHf_pWzK");
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Foodtruck - Commandez votre menu</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>FoodTruck</h1>
+    <p>Commandez vos plats préférés en toute simplicité !</p>
+  </header>
 
-  const prixPlats = { "Hamburger": 5, "Frites": 2 };
-  const prixBoissons = { "Coca Cola": 1, "Sprite": 1, "Jupiler": 1.5 };
+  <main>
+    <section id="menu">
+      <h2>Notre Menu</h2>
+      <ul>
+        <li>Hamburger - 5€</li>
+        <li>Frites - 2€</li>
+      </ul>
+    </section>
 
-  document.addEventListener('DOMContentLoaded', function () {
-    const form = document.getElementById("order-form");
+    <section id="boissons-menu">
+      <h2>Nos boissons</h2>
+      <ul>
+        <li>Coca Cola - 1€</li>
+        <li>Sprite - 1€</li>
+        <li>Jupiler - 1,5€</li>
+      </ul>
+    </section>
 
-    document.getElementById("plat").addEventListener("change", updateTotal);
-    document.getElementById("boisson").addEventListener("change", updateTotal);
+    <section id="commande">
+      <h2>Passer une commande</h2>
+      <form id="order-form">
+        <label for="nom">Votre nom :</label>
+        <input type="text" id="nom" name="nom" required>
 
-    function updateTotal() {
-      const plat = document.getElementById('plat').value;
-      const boisson = document.getElementById('boisson').value;
-      let total = 0;
-      if (plat) total += prixPlats[plat];
-      if (boisson) total += prixBoissons[boisson];
-      document.getElementById('total').textContent = `Prix total : ${total}€`;
-    }
+        <label for="plat">Choisissez votre plat :</label>
+        <select id="plat" name="plat" required>
+          <option value="">-- Sélectionnez un plat --</option>
+          <option value="Hamburger">Hamburger - 5€</option>
+          <option value="Frites">Frites - 2€</option>
+        </select>
 
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
+        <label for="boisson">Choisissez votre boisson :</label>
+        <select id="boisson" name="boisson" required>
+          <option value="">-- Sélectionnez une boisson --</option>
+          <option value="Coca Cola">Coca Cola - 1€</option>
+          <option value="Sprite">Sprite - 1€</option>
+          <option value="Jupiler">Jupiler - 1.5€</option>
+        </select>
 
-      const nom = document.getElementById("nom").value;
-      const plat = document.getElementById("plat").value;
-      const boisson = document.getElementById("boisson").value;
-      const total = prixPlats[plat] + prixBoissons[boisson];
-      const code = Math.floor(100000 + Math.random() * 900000);
-      const now = new Date();
-      const date = now.toLocaleDateString('fr-FR');
-      const time = now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+        <button type="submit">Valider la commande</button>
+      </form>
 
-      const params = {
-        name: nom,
-        order: `${plat} + ${boisson}`,
-        date: date,
-        time: time,
-        "cost.total": total,
-        order_id: code
-      };
+      <p id="total">Prix total : 0€</p>
+    </section>
+  </main>
 
-      emailjs.send("service_q67jhal", "template_g66jtml", params)
-        .then(() => {
-          // ✅ Redirection vers page de confirmation
-          window.location.href = "confirmation.html";
+  <footer>
+    <p>FoodTruck - © 2025</p>
+  </footer>
 
-          // OU afficher un message sur la même page :
-          // document.body.innerHTML = `<h1>Merci ${nom}, votre commande a été envoyée !</h1>`;
-        })
-        .catch((error) => {
-          alert("Erreur lors de l'envoi de l'email : " + error.text);
-        });
+  <!-- SDK EmailJS v4 -->
+  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script>
+    emailjs.init("r50mzNs4DLHf_pWzK");
+
+    const prixPlats = { "Hamburger": 5, "Frites": 2 };
+    const prixBoissons = { "Coca Cola": 1, "Sprite": 1, "Jupiler": 1.5 };
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const form = document.getElementById("order-form");
+
+      document.getElementById("plat").addEventListener("change", updateTotal);
+      document.getElementById("boisson").addEventListener("change", updateTotal);
+
+      function updateTotal() {
+        const plat = document.getElementById('plat').value;
+        const boisson = document.getElementById('boisson').value;
+        let total = 0;
+        if (plat) total += prixPlats[plat];
+        if (boisson) total += prixBoissons[boisson];
+        document.getElementById('total').textContent = `Prix total : ${total}€`;
+      }
+
+      form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        const nom = document.getElementById("nom").value;
+        const plat = document.getElementById("plat").value;
+        const boisson = document.getElementById("boisson").value;
+        const total = prixPlats[plat] + prixBoissons[boisson];
+        const code = Math.floor(100000 + Math.random() * 900000);
+        const now = new Date();
+        const date = now.toLocaleDateString('fr-FR');
+        const time = now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+
+        const params = {
+          name: nom,
+          order: `${plat} + ${boisson}`,
+          date: date,
+          time: time,
+          "cost.total": total,
+          order_id: code
+        };
+
+        emailjs.send("service_q67jhal", "template_g66jtml", params)
+          .then(() => {
+            window.location.href = "confirmation.html";
+          })
+          .catch((error) => {
+            alert("Erreur lors de l'envoi de l'email : " + error.text);
+          });
+      });
     });
-  });
-</script>
+  </script>
+</body>
+</html>
 
 
 
