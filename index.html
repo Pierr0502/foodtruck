@@ -155,66 +155,6 @@
 
             <p id="total">Prix total : 0€</p>
         </section>
-
-        <!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Confirmation de commande</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            padding: 40px;
-            background-color: #f0f0f0;
-        }
-        .confirmation {
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            max-width: 600px;
-            margin: auto;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-        }
-        h1 {
-            color: #ff8c00;
-        }
-        p {
-            font-size: 18px;
-        }
-    </style>
-</head>
-<body>
-    <div class="confirmation">
-        <h1>Merci pour votre commande !</h1>
-        <p><strong>Nom :</strong> <span id="nom"></span></p>
-        <p><strong>Plat :</strong> <span id="plat"></span></p>
-        <p><strong>Boisson :</strong> <span id="boisson"></span></p>
-        <p><strong>Prix total :</strong> <span id="total"></span></p>
-        <p><strong>Code de commande :</strong> <span id="code"></span></p>
-    </div>
-
-    <script>
-        const data = JSON.parse(localStorage.getItem("commande"));
-
-        if (data) {
-            document.getElementById("nom").textContent = data.nom;
-            document.getElementById("plat").textContent = data.plat;
-            document.getElementById("boisson").textContent = data.boisson;
-            document.getElementById("total").textContent = data.total;
-            document.getElementById("code").textContent = data.code;
-        } else {
-            document.querySelector('.confirmation').innerHTML = "<p>Erreur : Aucune commande trouvée.</p>";
-        }
-    </script>
-</body>
-</html>
-
-    </main>
-
-    <footer>
-        <p>FoodTruck - © 2025</p>
-    </footer>
-
     <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <script>
         // Prix des éléments de menu
