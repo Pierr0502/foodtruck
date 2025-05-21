@@ -1,77 +1,123 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <link rel="stylesheet" href="style.css">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Foodtruck - Commandez votre menu</title>
-    <style>
-        /* ... ton CSS est OK, je le laisse tel quel ... */
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Foodtruck - Commandez votre menu</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-    <header>
-        <h1>FoodTruck</h1>
-        <p>Commandez vos plats préférés en toute simplicité !</p>
-    </header>
+  <header>
+    <h1>FoodTruck</h1>
+    <p>Commandez vos plats préférés en toute simplicité !</p>
+  </header>
 
-    <main>
-        <section id="menu">
-            <h2>Notre Menu</h2>
-            <ul>
-                <li>Hamburger - 5€</li>
-                <li>Frites - 2€</li>
-            </ul>
-        </section>
+  <main>
+    <section id="commande">
+      <h2>Passer une commande</h2>
+      <form id="order-form">
+        <label for="nom">Votre nom :</label>
+        <input type="text" id="nom" name="nom" required>
 
-        <section id="boissons-menu">
-            <h2>Nos boissons</h2>
-            <ul>
-                <li>Coca Cola - 1€</li>
-                <li>Sprite - 1€</li>
-                <li>Jupiler - 1,5€</li>
-            </ul>
-        </section>
+        <label for="plat">Plat :</label>
+        <select id="plat" name="plat" required>
+          <option value="">-- Sélectionnez --</option>
+          <option value="Hamburger">Hamburger - 5€</option>
+          <option value="Frites">Frites - 2€</option>
+        </select>
 
-        <section id="commande">
-            <h2>Passer une commande</h2>
-            <form id="order-form">
-                <label for="nom">Votre nom :</label>
-                <input type="text" id="nom" name="nom" required>
+        <label for="boisson">Boisson :</label>
+        <select id="boisson" name="boisson" required>
+          <option value="">-- Sélectionnez --</option>
+          <option value="Coca Cola">Coca Cola - 1€</option>
+          <option value="Sprite">Sprite - 1€</option>
+          <option value="Jupiler">Jupiler - 1,5€</option>
+        </select>
 
-                <label for="plat">Choisissez votre plat :</label>
-                <select id="plat" name="plat" required>
-                    <option value="">-- Sélectionnez un plat --</option>
-                    <option value="Hamburger">Hamburger - 5€</option>
-                    <option value="Frites">Frites - 2€</option>
-                </select>
+        <button type="submit">Valider la commande</button>
+      </form>
 
-                <label for="boisson">Choisissez votre boisson :</label>
-                <select id="boisson" name="boisson" required>
-                    <option value="">-- Sélectionnez une boisson --</option>
-                    <option value="Coca Cola">Coca Cola - 1€</option>
-                    <option value="Sprite">Sprite - 1€</option>
-                    <option value="Jupiler">Jupiler - 1,5€</option>
-                </select>
+      <p id="total">Prix total : 0€</p>
+    </section>
+  </main>
 
-                <button type="submit">Valider la commande</button>
-            </form>
+  <footer>
+    <p>FoodTruck - © 2025</p>
+  </footer>
 
-            <p id="total">Prix total : 0€</p>
-        </section>
-    </main>
+  <!-- EmailJS SDK -->
+  <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+  <script type="text/javascript">
+    (function(){
+      emailjs.init({
+        publicKey: "r50mzNs4DLHf_pWzK",
+      });
+    })();
+  </script>
 
-    <footer>
-        <p>FoodTruck - © 2025</p>
-    </footer>
+  <!-- Script personnalisé -->
+  <script>
+    const prixPlats = {
+      "Hamburger": 5,
+      "Frites": 2
+    };
+    const prixBoissons = {
+      "Coca Cola": 1,
+      "Sprite": 1,
+      "Jupiler": 1.5
+    };
 
-    <!-- EmailJS -->
-    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    function updateTotal() {
+      const plat = document.getElementById('plat').value;
+      const boisson = document.getElementById('boisson').value;
+      let total = 0;
+      if (plat) total += prixPlats[plat];
+      if (boisson) total += prixBoissons[boisson];
+      document.getElementById('total').textContent = `Prix total : ${total}€`;
+    }
 
-    <!-- Ton script séparé -->
-    <script src="script.js"></script>
+    document.addEventListener('DOMContentLoaded', function () {
+      document.getElementById('plat').addEventListener('change', updateTotal);
+      document.getElementById('boisson').addEventListener('change', updateTotal);
+
+      document.getElementById('order-form').addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        const nom = document.getElementById('nom').value;
+        const plat = document.getElementById('plat').value;
+        const boisson = document.getElementById('boisson').value;
+
+        if (nom && plat && boisson) {
+          const total = prixPlats[plat] + prixBoissons[boisson];
+          const code = Math.floor(100000 + Math.random() * 900000);
+          const now = new Date();
+          const date = now.toLocaleDateString('fr-FR');
+          const time = now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+
+          emailjs.send("service_q67jhal", "template_g66jtml", {
+            name: nom,
+            order: `${plat} + ${boisson}`,
+            date: date,
+            time: time,
+            "cost.total": total,
+            order_id: code
+          }).then(() => {
+            alert("Commande envoyée avec succès !");
+            document.getElementById("order-form").reset();
+            document.getElementById("total").textContent = "Prix total : 0€";
+          }).catch((error) => {
+            alert("Erreur lors de l'envoi : " + error.text);
+          });
+
+        } else {
+          alert("Veuillez remplir tous les champs !");
+        }
+      });
+    });
+  </script>
 </body>
 </html>
+
 
 
 
