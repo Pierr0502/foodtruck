@@ -97,26 +97,39 @@
         const date = now.toLocaleDateString('fr-FR');
         const time = now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
 
-    emailjs.send("service_q67jhal", "template_g66jtml", params)
-  .then(() => {
-    const commande = {
-      nom: nom,
-      plat: plat,
-      boisson: boisson,
-      total: total + "€",
-      code: code
-    };
-    localStorage.setItem("commande", JSON.stringify(commande));
-    window.location.href = "confirmation.html";
-  })
-  .catch((error) => {
-    alert("Erreur lors de l'envoi de l'email : " + error.text);
-  });
+        const params = {
+          name: nom,
+          order: `${plat} + ${boisson}`,
+          date: date,
+          time: time,
+          cost_total: total,
+          order_id: code
+        };
+
+        // Stocker la commande localement
+        const commande = {
+          nom: nom,
+          plat: plat,
+          boisson: boisson,
+          total: total + "€",
+          code: code
+        };
+        localStorage.setItem("commande", JSON.stringify(commande));
+
+        // Envoi de l'e-mail et redirection
+        emailjs.send("service_q67jhal", "template_g66jtml", params)
+          .then(() => {
+            window.location.href = "confirmation.html";
+          })
+          .catch((error) => {
+            alert("Erreur lors de l'envoi de l'email : " + error.text);
+          });
       });
     });
   </script>
 </body>
 </html>
+
 
 
 
