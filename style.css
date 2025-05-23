@@ -154,3 +154,25 @@ footer {
   }
 }
 
+.menu-options, .boisson-options {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+.menu-item, .boisson-item {
+  border: 2px solid #ccc;
+  padding: 10px 20px;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: background-color 0.3s;
+}
+
+.menu-item:hover, .boisson-item:hover {
+  background-color: #f0f0f0;
+}
+
+.selected {
+  border-color: #007BFF;
+  background-color: #E0F0FF;
+}
