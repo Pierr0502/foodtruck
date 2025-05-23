@@ -24,6 +24,28 @@ function updateTotal() {
 }
 
 document.addEventListener('DOMContentLoaded', function () {
+    // Gérer sélection des plats
+document.querySelectorAll('.menu-item').forEach(item => {
+  item.addEventListener('click', () => {
+    document.querySelectorAll('.menu-item').forEach(el => el.classList.remove('selected'));
+    item.classList.add('selected');
+    const plat = item.dataset.plat;
+    document.getElementById('plat').value = plat;
+    updateTotal();
+  });
+});
+
+// Gérer sélection des boissons
+document.querySelectorAll('.boisson-item').forEach(item => {
+  item.addEventListener('click', () => {
+    document.querySelectorAll('.boisson-item').forEach(el => el.classList.remove('selected'));
+    item.classList.add('selected');
+    const boisson = item.dataset.boisson;
+    document.getElementById('boisson').value = boisson;
+    updateTotal();
+  });
+});
+
     const platEl = document.getElementById('plat');
     const boissonEl = document.getElementById('boisson');
     const form = document.getElementById('order-form');
